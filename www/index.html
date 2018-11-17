@@ -6,6 +6,20 @@
   </head>
   <body>
     <h1>Thomas RTM</h1>
+    <div id="bugform">
+     <form method="post" action="">
+      <fieldset>
+        <legend>Submit a bug</legend>
+        <label for="username">Name</label>
+        <input type="text" name="username" id="username" placeholder="What is your name?" /><br />
+        <label for="useremail">Email</label>
+        <input type="email" name="useremail" id="useremail" placeholder="What is your email address?" /><br />
+        <label for="userquestion">Issue</label>
+        <textarea name="userquestion" id="userquestion" placeholder="What is the issue?"></textarea><br />
+        <button type="submit">Submit</button>
+      </fieldset>
+     </form>
+    </div>
 <script>
     (function(d, i, r, e, c, t, l, y) {
         i[r] = i[r] || function () {
@@ -27,6 +41,44 @@
     DirectlyRTM("config", {
         id: "2c9985ab668037e00166b31c796134ef"
     });
-</script>
+    </script>
+    <script>
+    (function(t,h,o,m,a,s) {
+        // JavaScript works, we can display the form
+        t.style.display = "block";
+
+        // Perform simple validation
+        t.onsubmit = function(e) {
+            e.preventDefault();
+
+            var error = false;
+            var username = this.querySelector("#username");
+            var useremail = this.querySelector("#useremail");
+            var userquestion = this.querySelector("#userquestion");
+
+            if (!username.value) {
+                alert("Please provide your name");
+                username.focus();
+                error = true;
+            } else if (!useremail.value) {
+                alert("Please provide your email address");
+                useremail.focus();
+                error = true;
+            } else if (!userquestion.value) {
+                alert("Please describe your issue");
+                userquestion.focus();
+                error = true;
+            }
+
+            if (!error) {
+            	DirectlyRTM("askQuestion", {
+            	    questionText: userquestion.value,
+            	    name: username.value,
+            	    email: useremail.value
+            	});
+            }
+        };
+    })(document.getElementById("bugform"));
+    </script>
   </body>
 </html>
