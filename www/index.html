@@ -16,6 +16,12 @@
         <input type="email" name="useremail" id="useremail" placeholder="What is your email address?" /><br />
         <label for="userquestion">Issue</label>
         <textarea name="userquestion" id="userquestion" placeholder="What is the issue?"></textarea><br />
+        <label for="severity">Severity</label>
+        <select id="severity" name="severity">
+            <option value="3">Low</option>
+            <option value="2">Medium</option>
+            <option value="1">High</option>
+        </select>
         <button type="submit">Submit</button>
       </fieldset>
      </form>
@@ -55,8 +61,12 @@
             var username = this.querySelector("#username");
             var useremail = this.querySelector("#useremail");
             var userquestion = this.querySelector("#userquestion");
+            var severity = this.querySelector("#severity");
 
-            if (!username.value) {
+            if (1 == severity.value) {
+            	// Threshold, bypass RTM
+            	return false;
+            } else if (!username.value) {
                 alert("Please provide your name");
                 username.focus();
                 error = true;
