@@ -18,9 +18,9 @@
         <textarea name="userquestion" id="userquestion" placeholder="What is the issue?"></textarea><br />
         <label for="severity">Severity</label>
         <select id="severity" name="severity">
-            <option value="3">Low</option>
-            <option value="2">Medium</option>
-            <option value="1">High</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
         </select>
         <button type="submit">Submit</button>
       </fieldset>
@@ -63,7 +63,7 @@
             var userquestion = this.querySelector("#userquestion");
             var severity = this.querySelector("#severity");
 
-            if (1 == severity.value) {
+            if ("High" == severity.value) {
             	// Threshold, bypass RTM
             	return false;
             } else if (!username.value) {
@@ -81,6 +81,12 @@
             }
 
             if (!error) {
+            	DirectlyRTM("set", "metadata", {
+            		"source_page": window.location.href,
+            		"date": new Date,
+            		"severity": severity.value,
+            		"simple_name": !username.value.includes(" ")
+           		});
             	DirectlyRTM("askQuestion", {
             	    questionText: userquestion.value,
             	    name: username.value,
@@ -88,7 +94,7 @@
             	});
             }
         };
-    })(document.getElementById("bugform"));
+    })(document.querySelector("#bugform"));
     </script>
   </body>
 </html>
